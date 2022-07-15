@@ -8,6 +8,10 @@ class BinaryCrossEntropy(Layer):
         super().__init__()
 
     def forward(self, x, t):
+        """
+        x: estimated data
+        t: ground truth data
+        """
         self.input = x
         self.target = t
         self.output = -np.sum(t * np.log(x) + (1 - t) * np.log(1 - x)) / self.input.shape[0]
@@ -21,6 +25,10 @@ class MeanSquareError(Layer):
         super().__init__()
 
     def forward(self, x, t):
+        """
+        x: estimated data
+        t: ground truth data
+        """
         self.input = x
         self.target = t
         self.output = np.sum((t - x) ** 2) / (2 * self.input.shape[0])

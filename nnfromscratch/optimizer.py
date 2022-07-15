@@ -3,6 +3,10 @@ import numpy as np
 
 class Optimizer:
     def __init__(self, params: dict, lr=0.01):
+        """
+        params: dict of Parameter
+        lr: learning rate
+        """
         self.params = params
         self.lr = lr
 
@@ -16,6 +20,10 @@ class Optimizer:
 
 class SGD(Optimizer):
     def __init__(self, params: dict, lr=0.01):
+        """
+        params: dict of Parameter
+        lr: learning rate
+        """
         super().__init__(params, lr)
 
     def step(self):
@@ -25,6 +33,11 @@ class SGD(Optimizer):
 
 class Momentum(Optimizer):
     def __init__(self, params: dict, lr=0.01, momentum=0.9):
+        """
+        params: dict of Parameter
+        lr: learning rate
+        momentum: momentum
+        """
         super().__init__(params, lr)
         self.momentum = momentum
         self.v = {}
@@ -39,6 +52,12 @@ class Momentum(Optimizer):
 
 class Adam(Optimizer):
     def __init__(self, params: dict, lr=0.01, beta1=0.9, beta2=0.999):
+        """
+        params: dict of Parameter
+        lr: learning rate
+        beta1: beta1
+        beta2: beta2
+        """
         super().__init__(params, lr)
         self.beta1 = beta1
         self.beta2 = beta2

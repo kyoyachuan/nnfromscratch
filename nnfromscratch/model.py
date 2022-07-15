@@ -5,28 +5,48 @@ from .activation import activation_layer
 
 
 class Model:
-    def __init__(self, loss=None):
+    def __init__(self, loss: Layer = None):
+        """
+        loss: loss function
+        """
         self.layers = []
         self.loss = loss
 
-    def __call__(self, x):
+    def __call__(self, x) -> np.ndarray:
+        """
+        x: input data
+        return: estimated data
+        """
         return self.forward(x)
 
     def add(self, layer: Layer):
+        """
+        layer: layer
+        """
         self.layers.append(layer)
 
-    def forward(self, x):
+    def forward(self, x) -> np.ndarray:
+        """
+        x: input data
+        return: estimated data
+        """
         for layer in self.layers:
             x = layer(x)
         return x
 
     def backward(self, grad=1):
+        """
+        grad: gradient
+        """
         if self.loss:
             grad = self.loss.backward()
         for layer in reversed(self.layers):
             grad = layer.backward(grad)
 
-    def parameters(self):
+    def parameters(self) -> dict:
+        """
+        return: parameters dict
+        """
         params = {}
         for index, layer in enumerate(self.layers):
             if layer.params:
@@ -34,7 +54,10 @@ class Model:
                     params[f'{key}_{index}'] = layer.params[key]
         return params
 
-    def __repr__(self):
+    def __repr__(self) -> str:
+        """
+        return: model representation
+        """
         return 'Model({})'.format(self.layers)
 
 
@@ -48,6 +71,14 @@ class TwoLayerNetwork(Model):
         activation: str = 'sigmoid',
         loss=None
     ):
+        """
+        input_size: input data size
+        hidden_size_1: hidden layer 1 size
+        hidden_size_2: hidden layer 2 size
+        output_size: output data size
+        activation: activation function
+        loss: loss function
+        """
         super().__init__(loss)
         self.add(Dense(input_size, hidden_size_1),)
         self.add(activation_layer(activation),)

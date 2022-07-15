@@ -10,6 +10,8 @@ def activation_layer(activation):
         return Relu()
     elif activation == 'linear':
         return Linear()
+    elif activation == 'tanh':
+        return Tanh()
     else:
         raise ValueError('Unknown activation: {}'.format(activation))
 
@@ -48,4 +50,16 @@ class Relu(Layer):
 
     def backward(self, grad):
         return grad * (self.input > 0)
+
+
+class Tanh(Layer):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, x):
+        self.input = x
+        self.output = np.tanh(x)
+
+    def backward(self, grad):
+        return grad * (1 - self.output ** 2)
 

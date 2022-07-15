@@ -12,6 +12,9 @@ class Model:
     def __call__(self, x):
         return self.forward(x)
 
+    def add(self, layer: Layer):
+        self.layers.append(layer)
+
     def forward(self, x):
         for layer in self.layers:
             x = layer(x)
@@ -46,11 +49,9 @@ class TwoLayerNetwork(Model):
         loss=None
     ):
         super().__init__(loss)
-        self.layers = [
-            Dense(input_size, hidden_size_1),
-            activation_layer(activation),
-            Dense(hidden_size_1, hidden_size_2),
-            activation_layer(activation),
-            Dense(hidden_size_2, output_size),
-            activation_layer('sigmoid')
-        ]
+        self.add(Dense(input_size, hidden_size_1),)
+        self.add(activation_layer(activation),)
+        self.add(Dense(hidden_size_1, hidden_size_2),)
+        self.add(activation_layer(activation),)
+        self.add(Dense(hidden_size_2, output_size),)
+        self.add(activation_layer('sigmoid'))

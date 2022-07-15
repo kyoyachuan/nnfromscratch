@@ -1,4 +1,4 @@
-from nnfromscratch import TwoLayerNetwork, SGD, BinaryCrossEntropy, MeanSquareError
+from nnfromscratch import TwoLayerNetwork, SGD, Momentum, Adam, BinaryCrossEntropy, MeanSquareError
 from utils.data import generate_linear, generate_XOR_easy
 from utils.metrics import accuracy
 from utils.plot import show_result, show_loss
@@ -11,16 +11,16 @@ def main():
     # x_test, y_test = generate_XOR_easy()
 
     model = TwoLayerNetwork(
-	    input_size=2,
-	    hidden_size_1=5,
-	    hidden_size_2=5,
-	    output_size=1,
-        activation='linear',
-	    loss=BinaryCrossEntropy()
+        input_size=2,
+        hidden_size_1=10,
+        hidden_size_2=10,
+        output_size=1,
+        activation='sigmoid',
+        loss=BinaryCrossEntropy()
     )
     print(model)
 
-    optimizer = SGD(model.parameters(), lr=.01)
+    optimizer = Adam(model.parameters(), lr=.01)
 
     loss = []
     acc = []
@@ -33,7 +33,8 @@ def main():
         optimizer.step()
         optimizer.zero_grad()
 
-        print(f"epoch: {i}, loss: {loss[-1]}, accuracy: {acc[-1]}")
+        if i % 100 == 0:
+            print(f'epoch: {i} loss: {loss[-1]} acc: {acc[-1]}')
 
     y_pred = model(x_test)
     show_loss(loss, acc, 'loss.png')

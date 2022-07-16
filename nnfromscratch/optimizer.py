@@ -1,8 +1,10 @@
 import numpy as np
 
+from .layer import Parameter
+
 
 class Optimizer:
-    def __init__(self, params: dict, lr=0.01):
+    def __init__(self, params: dict[Parameter], lr=0.01):
         """
         params: dict of Parameter
         lr: learning rate
@@ -19,7 +21,7 @@ class Optimizer:
 
 
 class SGD(Optimizer):
-    def __init__(self, params: dict, lr=0.01):
+    def __init__(self, params: dict[Parameter], lr=0.01):
         """
         params: dict of Parameter
         lr: learning rate
@@ -32,7 +34,7 @@ class SGD(Optimizer):
 
 
 class Momentum(Optimizer):
-    def __init__(self, params: dict, lr=0.01, momentum=0.9):
+    def __init__(self, params: dict[Parameter], lr=0.01, momentum=0.9):
         """
         params: dict of Parameter
         lr: learning rate
@@ -51,7 +53,7 @@ class Momentum(Optimizer):
 
 
 class Adam(Optimizer):
-    def __init__(self, params: dict, lr=0.01, beta1=0.9, beta2=0.999):
+    def __init__(self, params: dict[Parameter], lr=0.01, beta1=0.9, beta2=0.999):
         """
         params: dict of Parameter
         lr: learning rate

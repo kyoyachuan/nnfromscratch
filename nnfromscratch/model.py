@@ -1,6 +1,6 @@
 import numpy as np
 
-from .layer import Dense, Layer, Parameter
+from .layer import Dense, Layer
 from .activation import activation_layer
 
 

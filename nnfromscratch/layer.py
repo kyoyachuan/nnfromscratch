@@ -81,9 +81,10 @@ class Convolution2D(Layer):
         )
         self.kernel_size = kernel_size
 
-    def _get_output_shape(self, input_size):
+    def _get_output_shape(self, input_size) -> int:
         """
         input_size: input data size
+        return: output data size
         """
         return (input_size - self.kernel_size) // 1 + 1
 
@@ -92,12 +93,20 @@ class Convolution2D(Layer):
         x: input data
         """
         self.input = x
-        self.output = np.zeros((x.shape[0], self.params['W'].data.shape[1], self._get_output_shape(x.shape[2]), self._get_output_shape(x.shape[3])))
+        self.output = np.zeros(
+            (x.shape[0],
+             self.params['W'].data.shape[1],
+             self._get_output_shape(x.shape[2]),
+             self._get_output_shape(x.shape[3]))
+        )
         for i in range(x.shape[0]):
             for j in range(self.params['W'].data.shape[1]):
                 for k in range(self._get_output_shape(x.shape[2])):
                     for l in range(self._get_output_shape(x.shape[3])):
-                        self.output[i, j, k, l] = np.sum(self.params['W'].data[:, j, k:k + self.kernel_size, l:l + self.kernel_size] * x[i, :, k:k + self.kernel_size, l:l + self.kernel_size]) + self.params['b'].data[0, j]
+                        self.output[i, j, k, l] = np.sum(
+                            self.params['W'].data[:, j, k: k + self.kernel_size, l: l + self.kernel_size] *
+                            x[i, :, k: k + self.kernel_size, l: l + self.kernel_size]
+                        ) + self.params['b'].data[0, j]
 
     def backward(self, grad) -> np.ndarray:
         """
@@ -110,7 +119,7 @@ class Convolution2D(Layer):
             for j in range(grad.shape[1]):
                 for k in range(grad.shape[2]):
                     for l in range(grad.shape[3]):
-                        self.params['W'].grad[:, j, k:k + self.kernel_size, l:l + self.kernel_size] += grad[i, j, k, l] * self.input[i, :, k:k + self.kernel_size, l:l + self.kernel_size]
+                        self.params['W'].grad[:, j, k:k + self.kernel_size, l:l + self.kernel_size] += \
+                            grad[i, j, k, l] * self.input[i, :, k:k + self.kernel_size, l:l + self.kernel_size]
                         self.params['b'].grad[0, j] += grad[i, j, k, l]
         return np.sum(grad * self.params['W'].data, axis=(1, 2, 3))
- 

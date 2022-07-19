@@ -1,0 +1,63 @@
+[default]
+dataset = "linear"  # "linear" or "xor_easy"
+activation = "sigmoid"  # "sigmoid" or "linear" or "tanh" or "relu"
+lr = 0.1  # learning rate
+optimizer = "sgd"  # "adam" or "sgd" or "momentum"
+loss = "binary_cross_entropy"  # "binary_cross_entropy" or "mean_square_error"
+hidden_size = 16
+epochs = 5000
+
+[[experiment]]
+
+name = "baseline"
+enable = false
+experiment = "dataset"
+value = ["linear", "xor_easy"]
+
+[[experiment]]
+
+name = "xor_wo_activation"
+dataset = "xor_easy"
+enable = false
+experiment = "activation"
+value = ["sigmoid", "linear"]
+
+[[experiment]]
+
+name = "xor_hidden_size"
+dataset = "xor_easy"
+enable = false
+experiment = "hidden_size"
+value = [2, 4, 8, 16, 32]
+
+[[experiment]]
+
+name = "xor_lr"
+dataset = "xor_easy"
+enable = false
+experiment = "lr"
+value = [0.1, 0.01, 0.001]
+
+[[experiment]]
+
+name = "xor_loss"
+dataset = "xor_easy"
+enable = false
+experiment = "loss"
+value = ["binary_cross_entropy", "mean_square_error"]
+
+[[experiment]]
+
+name = "xor_activation"
+dataset = "xor_easy"
+enable = false
+experiment = "activation"
+value = ["sigmoid", "relu", "tanh"]
+
+[[experiment]]
+
+name = "xor_optimizer"
+dataset = "xor_easy"
+enable = true
+experiment = "optimizer"
+value = ["sgd", "momentum", "adam"]

@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 
-def show_result(x, y, pred_y, fname):
+def plot_result(fname, x, y, pred_y):
     plt.subplot(1, 2, 1)
     plt.title('Ground truth', fontsize=18)
     for i in range(x.shape[0]):
@@ -9,7 +9,7 @@ def show_result(x, y, pred_y, fname):
             plt.plot(x[i][0], x[i][1], 'ro')
         else:
             plt.plot(x[i][0], x[i][1], 'bo')
-    
+
     plt.subplot(1, 2, 2)
     plt.title('Predict result', fontsize=18)
     for i in range(x.shape[0]):
@@ -18,16 +18,26 @@ def show_result(x, y, pred_y, fname):
         else:
             plt.plot(x[i][0], x[i][1], 'bo')
     plt.savefig(fname)
+    plt.close()
 
 
-def show_loss(loss, acc, fname):
-    plt.plot(loss, label='loss')
-    plt.plot(acc, label='acc')
-    plt.title('Loss-Epoch plot', fontsize=18)
-    plt.xlabel('epoch')
-    plt.ylabel('loss/acc')
-    plt.ylim([-0.1, 1.1])
-    plt.yticks([0.1 * i for i in range(11)])
-    plt.legend()
-    plt.grid()
-    plt.savefig(fname)
+def plot_curve_by_exp_group(fname, title='', **kwargs):
+    fig = plt.figure(figsize=(8, 4.5))
+    plt.title(title)
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss & Accuracy')
+
+    for label, data in kwargs.items():
+        plt.plot(
+            range(1, len(data)+1), data,
+            '--' if 'accuracy' in label else '-',
+            label=label
+        )
+
+    plt.legend(
+        loc='best', bbox_to_anchor=(1.0, 1.0, 0.2, 0),
+        fancybox=True, shadow=True
+    )
+
+    plt.savefig(fname, dpi=300, bbox_inches="tight")
+    plt.close()

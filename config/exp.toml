@@ -16,14 +16,6 @@ value = ["linear", "xor_easy"]
 
 [[experiment]]
 
-name = "xor_wo_activation"
-dataset = "xor_easy"
-enable = false
-experiment = "activation"
-value = ["sigmoid", "linear"]
-
-[[experiment]]
-
 name = "xor_hidden_size"
 dataset = "xor_easy"
 enable = false
@@ -50,14 +42,14 @@ value = ["binary_cross_entropy", "mean_square_error"]
 
 name = "xor_activation"
 dataset = "xor_easy"
-enable = false
+enable = true
 experiment = "activation"
-value = ["sigmoid", "relu", "tanh"]
+value = ["linear", "sigmoid", "relu", "tanh"]
 
 [[experiment]]
 
 name = "xor_optimizer"
 dataset = "xor_easy"
-enable = true
+enable = false
 experiment = "optimizer"
 value = ["sgd", "momentum", "adam"]

@@ -5,6 +5,28 @@ name	  : 周俊川
 student id: 310551002
 ```
 
+## Table of contents
+
+1. [Introduction](#introduction)
+2. [Experiments setups](#experiments-setups)
+    a. [Backpropagation](#backpropagation)
+    b. [Sigmoid function](#sigmoid-function)
+    c. [Neural network](#neural-network)
+3. [Results](#results)
+    a. [Comparision results](#comparison-results)
+    b. [Accuracy and loss curve](#accuracy-and-loss-curve)
+4. [Discussion](#discussion)
+    a. [Number of hidden units](#number-of-hidden-units)
+    b. [Loss functions](#loss-functions)
+    c. [Activation functions](#activation-functions)
+    d. [Learning rates](#learning-rates)
+    e. [Optimizers](#optimizers)
+5. [Extra](#extra)
+    a. [Implementation of different activation functions](#implementation-of-different-activation-functions)
+    b. [Implementation of different optimizers](#implementation-of-different-optimizers)
+    c. [Implementation of convolution layer](#implementation-of-convolution-layer)
+6. [References](#references)
+
 ## Introduction
 
 In this lab, I'm going to familiar with backpropagation algorithms by implementing neural network modules with pure python's **numpy**.
